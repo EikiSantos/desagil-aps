@@ -1,10 +1,10 @@
 package br.pro.hashi.ensino.desagil.aps.model;
 
-public class AndGate extends Gate{
+public class AndGate extends Gate {
     private final NandGate nand1;
     private final NandGate nand2;
 
-    public AndGate(){
+    public AndGate() {
         super("AND", 2);
 
         nand1 = new NandGate();
