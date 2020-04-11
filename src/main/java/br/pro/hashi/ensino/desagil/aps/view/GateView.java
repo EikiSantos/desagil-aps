@@ -21,16 +21,19 @@ public class GateView extends JPanel implements ActionListener {
         this.gate = gate;
         this.signal_A = new Switch();
         this.signal_B = new Switch();
-        A_receiverBox = new JCheckBox("Entrada:");
+        JLabel receiverLabel = new JLabel("Entrada");
+        A_receiverBox = new JCheckBox();
         B_receiverBox = new JCheckBox();
-        emitterBox = new JCheckBox("Saída:", false);
+        JLabel emmiterLabel = new JLabel("Saída");
+        emitterBox = new JCheckBox();
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+        add(receiverLabel);
         add(A_receiverBox);
         if (gate.getInputSize() > 1){
             add(B_receiverBox);
         }
+        add(emmiterLabel);
         add(emitterBox);
 
         A_receiverBox.addActionListener(this);
@@ -59,6 +62,9 @@ public class GateView extends JPanel implements ActionListener {
 
         if (gate.read()) {
             emitterBox.setSelected(true);
+        }
+        else {
+            emitterBox.setSelected(false);
         }
     }
 
