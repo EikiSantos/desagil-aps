@@ -1,4 +1,14 @@
 package br.pro.hashi.ensino.desagil.aps.view;
 
-public class View {
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class View extends JPanel implements ActionListener {
+
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+
+    }
 }
