@@ -92,11 +92,14 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
         }
         light.connect(0,gate);
         if (gate.read()) {
-            emitterBox.;
-            light.setColor(var_color);
+            emitterBox.setSelected(true);
+            color = Color.GREEN;
+            repaint();
+
         }
         else {
-            light.setColor(color);
+            color = Color.BLACK;
+            repaint();
             emitterBox.setSelected(false);
         }
 
@@ -152,7 +155,8 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 
         // Desenha um quadrado cheio.
         g.setColor(color);
-        g.fillRect(210, 311, 25, 25);
+
+        g.fillRect(190, 180, 25, 25);
 
         // Linha necessária para evitar atrasos
         // de renderização em sistemas Linux.
