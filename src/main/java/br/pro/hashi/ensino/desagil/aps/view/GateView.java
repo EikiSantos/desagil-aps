@@ -1,4 +1,5 @@
 package br.pro.hashi.ensino.desagil.aps.view;
+
 import br.pro.hashi.ensino.desagil.aps.model.Gate;
 import br.pro.hashi.ensino.desagil.aps.model.Light;
 import br.pro.hashi.ensino.desagil.aps.model.Switch;
@@ -24,9 +25,9 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
     private final Image image;
     private Color color;
     private final Light light;
-    private  int r;
-    private  int g;
-    private  int b;
+    private int r;
+    private int g;
+    private int b;
 
 
     public GateView(Gate gate) {
@@ -43,24 +44,22 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
         emitterBox = new JCheckBox();
 
 
-        add(receiverLabel, 10,10,75,25);
-        add(A_receiverBox,85,10,150,25);
-        if (gate.getInputSize() > 1){
-            add(B_receiverBox,10,45,75,25);
+        add(receiverLabel, 10, 10, 75, 25);
+        add(A_receiverBox, 85, 10, 150, 25);
+        if (gate.getInputSize() > 1) {
+            add(B_receiverBox, 10, 45, 75, 25);
         }
-        add(emmiterLabel,85,45,150,25);
-        add(emitterBox,10,311,75,25);
-
-        color = Color.BLACK;
+        add(emmiterLabel, 85, 45, 150, 25);
+        add(emitterBox, 10, 311, 75, 25);
 
         r = 255;
         g = 0;
         b = 0;
-        var_color = new Color(r, g, b);
 
-        this.light = new Light(0,0,0);
+        this.light = new Light(255, 0, 0);
 
         String name = gate.toString() + ".jpg";
+        System.out.println(name);
         URL url = getClass().getClassLoader().getResource(name);
         image = getToolkit().getImage(url);
 
@@ -73,7 +72,7 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
         update();
     }
 
-    private void update(){
+    private void update() {
         signal_A.turnOff();
         signal_B.turnOff();
         if (A_receiverBox.isSelected()) {
@@ -92,10 +91,8 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 
         if (gate.read()) {
             emitterBox.setSelected(true);
-            light.setColor(var_color);
-        }
-        else {
-            light.setColor(color);
+            light.connect(1, gate);
+        } else {
             emitterBox.setSelected(false);
         }
 
