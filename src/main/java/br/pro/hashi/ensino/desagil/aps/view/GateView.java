@@ -1,5 +1,6 @@
 package br.pro.hashi.ensino.desagil.aps.view;
 import br.pro.hashi.ensino.desagil.aps.model.Gate;
+import br.pro.hashi.ensino.desagil.aps.model.Light;
 import br.pro.hashi.ensino.desagil.aps.model.Switch;
 
 import javax.swing.*;
@@ -14,15 +15,19 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 
 
     private final Gate gate;
-
+    private Color var_color;
     private final JCheckBox A_receiverBox;
     private final JCheckBox B_receiverBox;
     private final JCheckBox emitterBox;
     private final Switch signal_A;
     private final Switch signal_B;
-
     private final Image image;
     private Color color;
+    private final Light light;
+    private  int r;
+    private  int g;
+    private  int b;
+
 
     public GateView(Gate gate) {
 
@@ -48,7 +53,14 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 
         color = Color.BLACK;
 
-        String name = gate.toString() + ".png";
+        r = 255;
+        g = 0;
+        b = 0;
+        var_color = new Color(r, g, b);
+
+        this.light = new Light(0,0,0);
+
+        String name = gate.toString() + ".jpg";
         URL url = getClass().getClassLoader().getResource(name);
         image = getToolkit().getImage(url);
 
@@ -80,10 +92,14 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 
         if (gate.read()) {
             emitterBox.setSelected(true);
+            light.setColor(var_color);
         }
         else {
+            light.setColor(color);
             emitterBox.setSelected(false);
         }
+
+
     }
 
     @Override
