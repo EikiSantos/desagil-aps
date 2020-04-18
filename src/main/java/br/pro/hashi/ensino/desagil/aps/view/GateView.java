@@ -1,6 +1,5 @@
 package br.pro.hashi.ensino.desagil.aps.view;
 
-import br.pro.hashi.ensino.desagil.aps.model.Emitter;
 import br.pro.hashi.ensino.desagil.aps.model.Gate;
 import br.pro.hashi.ensino.desagil.aps.model.Light;
 import br.pro.hashi.ensino.desagil.aps.model.Switch;
@@ -17,45 +16,29 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 
 
     private final Gate gate;
-    private Color var_color;
     private final JCheckBox A_receiverBox;
     private final JCheckBox B_receiverBox;
-    private final JCheckBox emitterBox;
     private final Switch signal_A;
     private final Switch signal_B;
     private final Image image;
-    private Color color;
     private final Light light;
-    private int r;
-    private int g;
-    private int b;
-
+    private Color color;
 
     public GateView(Gate gate) {
 
-        super(245, 346);
+        super(230,140);
 
         this.gate = gate;
         this.signal_A = new Switch();
         this.signal_B = new Switch();
-        JLabel receiverLabel = new JLabel("Entrada");
         A_receiverBox = new JCheckBox();
         B_receiverBox = new JCheckBox();
-        JLabel emmiterLabel = new JLabel("Saída");
-        emitterBox = new JCheckBox();
 
-
-        add(receiverLabel, 10, 10, 75, 25);
-        add(A_receiverBox, 85, 10, 150, 25);
+        add(A_receiverBox, 3, 62, 15, 15);
         if (gate.getInputSize() > 1) {
-            add(B_receiverBox, 10, 45, 75, 25);
+            add(B_receiverBox, 3, 90, 15, 15);
+            add(A_receiverBox, 3, 30, 15, 15);
         }
-        add(emmiterLabel, 85, 45, 150, 25);
-        add(emitterBox, 10, 311, 75, 25);
-
-        r = 255;
-        g = 0;
-        b = 0;
 
         this.light = new Light(255, 0, 0);
 
@@ -66,7 +49,6 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 
         A_receiverBox.addActionListener(this);
         B_receiverBox.addActionListener(this);
-        emitterBox.setEnabled(false);
 
 
         addMouseListener(this);
@@ -89,19 +71,16 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
         if (gate.getInputSize() > 1) {
             gate.connect(1, signal_B);
         }
-        light.connect(0,gate);
+        light.connect(0, gate);
+
         if (gate.read()) {
-            emitterBox.setSelected(true);
-
-            color = Color.GREEN;
+            color = light.getColor();
             repaint();
 
 
-        }
-        else {
-            color = Color.BLACK;
+        } else {
+            color = light.getColor();
             repaint();
-            emitterBox.setSelected(false);
         }
 
 
@@ -114,15 +93,15 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 
     @Override
     public void mouseClicked(MouseEvent event) {
-
         int x = event.getX();
         int y = event.getY();
+        if (light.getColor() != Color.BLACK) {
+                if ((x - 225) * (x - 225) + (y - 80) * (y - 80) < 25*25) {
+                color = JColorChooser.showDialog(this, null, color);
+                light.setColor(color);
+                repaint();
 
-        if (x >= 210 && x < 235 && y >= 311 && y < 336) {
-
-            color = JColorChooser.showDialog(this, null, color);
-
-            repaint();
+            }
         }
     }
 
@@ -152,12 +131,12 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
         super.paintComponent(g);
 
         // Desenha a imagem, passando sua posição e seu tamanho.
-        g.drawImage(image, 10, 80, 221, 221, this);
-
+        g.drawImage(image, 5, 5, 221, 126, this);
         // Desenha um quadrado cheio.
         g.setColor(color);
 
-        g.fillRect(190, 180, 25, 25);
+        g.fillOval(205, 55, 25, 25);
+        //g.fillRect(190, 180, 25, 25);
 
         // Linha necessária para evitar atrasos
         // de renderização em sistemas Linux.

@@ -12,7 +12,7 @@ public class View extends JPanel implements ActionListener {
     private GateView gateView;
 
     public View(LinkedList<Gate> model) {
-        menu =new JComboBox<>();
+        menu = new JComboBox<>();
         for (Gate gate : model) {
             menu.addItem(gate);
         }
@@ -33,7 +33,6 @@ public class View extends JPanel implements ActionListener {
 
         add(gateView);
     }
-
 
 
     @Override
