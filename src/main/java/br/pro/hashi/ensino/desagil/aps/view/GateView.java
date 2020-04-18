@@ -1,4 +1,5 @@
 package br.pro.hashi.ensino.desagil.aps.view;
+import br.pro.hashi.ensino.desagil.aps.model.Emitter;
 import br.pro.hashi.ensino.desagil.aps.model.Gate;
 import br.pro.hashi.ensino.desagil.aps.model.Light;
 import br.pro.hashi.ensino.desagil.aps.model.Switch;
@@ -89,9 +90,9 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
         if (gate.getInputSize() > 1) {
             gate.connect(1, signal_B);
         }
-
+        light.connect(0,gate);
         if (gate.read()) {
-            emitterBox.setSelected(true);
+            emitterBox.;
             light.setColor(var_color);
         }
         else {
