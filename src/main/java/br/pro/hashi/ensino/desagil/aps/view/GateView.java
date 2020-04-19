@@ -73,15 +73,9 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
         }
         light.connect(0, gate);
 
-        if (gate.read()) {
-            color = light.getColor();
-            repaint();
 
-
-        } else {
-            color = light.getColor();
-            repaint();
-        }
+        color = light.getColor();
+        repaint();
 
 
     }
